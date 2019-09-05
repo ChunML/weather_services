@@ -18,7 +18,7 @@ def recreate_db():
 
 @cli.command('seed_db')
 def seed_db():
-    df = get_weather_from_date(2014, 1, 1)
+    df = get_weather_from_date(2019, 9, 1)
     df = clean_data(df)
     dict_df = df.to_dict('index')
     try:
