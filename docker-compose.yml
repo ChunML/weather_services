@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+  weathers:
+    build:
+      context: ./services/weathers
+      dockerfile: Dockerfile
+    volumes:
+      - ./services/weathers:/usr/app
+    ports:
+      - 5001:5000
+    environment:
+      - FLASK_ENV=development
+      - APP_SETTINGS=project.config.DevelopmentConfig
+      - DATABASE_URL=postgres://postgres:postgres@weathers-db:5432/weathers_dev
+      - DATABASE_TEST_URL=postgres://postgres:postgres@weathers-db:5432/weathers_test
+    depends_on:
+      - weathers-db
+
+  weathers-db:
+    build:
+      context: ./services/weathers/project/db
+      dockerfile: Dockerfile
+    ports:
+      - 5435:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
