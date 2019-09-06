@@ -21,6 +21,8 @@ services:
     build:
       context: ./services/weathers/project/db
       dockerfile: Dockerfile
+    volumes:
+      - ./services/weathers/project/db/postgres:/var/lib/postgresql
     ports:
       - 5435:5432
     environment:
